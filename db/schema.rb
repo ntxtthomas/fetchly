@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_06_233829) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_08_140603) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.bigint "owner_id", null: false
+    t.bigint "sitter_id"
+    t.date "start_date"
+    t.date "end_date"
+    t.string "location"
+    t.integer "booking_status", default: 0, null: false
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_bookings_on_owner_id"
+    t.index ["sitter_id"], name: "index_bookings_on_sitter_id"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name", null: false
@@ -46,6 +60,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_06_233829) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "bookings", "users", column: "owner_id"
+  add_foreign_key "bookings", "users", column: "sitter_id"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
 end
