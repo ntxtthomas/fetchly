@@ -2,16 +2,10 @@
 
 one:
   first_name: MyString
-  string: MyString
   last_name: MyString
-  string: MyString
   email: MyString
-  string: MyString
 
 two:
   first_name: MyString
-  string: MyString
   last_name: MyString
-  string: MyString
   email: MyString
-  string: MyString
