@@ -20,11 +20,15 @@ class BookingsController < ApplicationController
 
   # POST /bookings
   def create
-    @booking = Booking.new(booking_params)
+    service = BookingCreationService.new(booking_params)
+    result = service.call
 
-    if @booking.save
+    if result.success?
+      @booking = result.booking
       redirect_to @booking, notice: "Booking was successfully created."
     else
+      @booking = Booking.new(booking_params)
+      @booking.errors.add(:base, result.errors.join(", ")) if result.errors.any?
       flash.now[:alert] = "There was a problem creating the booking."
       render :new, status: :unprocessable_entity
     end
@@ -66,7 +70,8 @@ class BookingsController < ApplicationController
       :end_date,
       :location,
       :booking_status,
-      :notes
+      :notes,
+      dog_ids: []
     )
   end
 
