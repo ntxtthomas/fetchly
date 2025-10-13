@@ -1,4 +1,4 @@
 if Rails.env.development? && defined?(Rails::Console)
-  require 'hirb'
+  require "hirb"
   Hirb.enable
 end
