@@ -23,7 +23,7 @@ class BookingsController < ApplicationController
     @booking = Booking.new(booking_params)
 
     if @booking.save
-      redirect_to @booking, notice: "Booking created successfully."
+      redirect_to @booking, notice: "Booking was successfully created."
     else
       flash.now[:alert] = "There was a problem creating the booking."
       render :new, status: :unprocessable_entity
@@ -37,7 +37,7 @@ class BookingsController < ApplicationController
   # PATCH/PUT /bookings/:id
   def update
     if @booking.update(booking_params)
-      redirect_to @booking, notice: "Booking updated successfully."
+      redirect_to @booking, notice: "Booking was successfully updated."
     else
       flash.now[:alert] = "There was a problem updating the booking."
       render :edit, status: :unprocessable_entity
@@ -47,7 +47,7 @@ class BookingsController < ApplicationController
   # DELETE /bookings/:id
   def destroy
     if @booking.destroy
-      redirect_to bookings_path, notice: "Booking deleted successfully."
+      redirect_to bookings_path, notice: "Booking was successfully destroyed."
     else
       redirect_to bookings_path, alert: "Failed to delete booking."
     end
