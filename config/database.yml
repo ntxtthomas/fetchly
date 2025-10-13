@@ -1,0 +1,87 @@
+# Default settings for all environments
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+# --------------------------
+# Development
+# --------------------------
+development:
+  <<: *default
+  # database: <%= ENV["DATABASE_NAME"] %>
+  # username: <%= ENV["DATABASE_USER"] %>
+  # password: <%= ENV["DATABASE_PASSWORD"] %>
+  # host: <%= ENV["DATABASE_HOST"] %>
+  port: <%= ENV["DATABASE_PORT"] || 5432 %>
+
+# ----------------------
+# Docker
+# ----------------------
+  database: <%= ENV["POSTGRES_DB"] %>
+  username: <%= ENV["POSTGRES_USER"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  host: <%= ENV["DATABASE_HOST"] %>
+
+
+# --------------------------
+# Test
+# --------------------------
+test:
+  <<: *default
+  database: fetchly_test
+  username: postgres
+  password: postgres
+  host: localhost
+  port: 5432
+
+# ----------------------
+# Docker
+# ----------------------
+  # database: <%= ENV["POSTGRES_DB"] %>
+  # username: <%= ENV["POSTGRES_USER"] %>
+  # password: <%= ENV["POSTGRES_PASSWORD"] %>
+  # host: <%= ENV["DATABASE_HOST"] %>
+
+# TODO: 
+# psql -U postgres -c "CREATE ROLE postgres WITH LOGIN SUPERUSER PASSWORD 'postgres';"
+# username: <%= ENV.fetch("POSTGRES_USER", "postgres") %>
+# password: <%= ENV.fetch("POSTGRES_PASSWORD", "postgres") %>
+# host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
+
+
+# --------------------------
+# Production
+# --------------------------
+production:
+  primary: &primary_production
+    <<: *default
+    # database: <%= ENV["DATABASE_NAME"] %>
+    # username: <%= ENV["DATABASE_USER"] %>
+    # password: <%= ENV["DATABASE_PASSWORD"] %>
+    # host: <%= ENV["DATABASE_HOST"] %>
+    port: <%= ENV["DATABASE_PORT"] || 5432 %>
+
+# ----------------------
+# Docker
+# ----------------------
+  database: <%= ENV["POSTGRES_DB"] %>
+  username: <%= ENV["POSTGRES_USER"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  host: <%= ENV["DATABASE_HOST"] %>
+
+
+  cache:
+    <<: *primary_production
+    database: <%= ENV["DATABASE_NAME_CACHE"] || "#{ENV["DATABASE_NAME"]}_cache" %>
+    migrations_paths: db/cache_migrate
+
+  queue:
+    <<: *primary_production
+    database: <%= ENV["DATABASE_NAME_QUEUE"] || "#{ENV["DATABASE_NAME"]}_queue" %>
+    migrations_paths: db/queue_migrate
+
+  cable:
+    <<: *primary_production
+    database: <%= ENV["DATABASE_NAME_CABLE"] || "#{ENV["DATABASE_NAME"]}_cable" %>
+    migrations_paths: db/cable_migrate
