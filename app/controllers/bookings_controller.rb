@@ -65,7 +65,7 @@ class BookingsController < ApplicationController
       :start_date,
       :end_date,
       :location,
-      :status,
+      :booking_status,
       :notes
     )
   end
