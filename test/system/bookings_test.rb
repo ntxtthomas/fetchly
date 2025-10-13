@@ -14,6 +14,14 @@ class BookingsTest < ApplicationSystemTestCase
     visit bookings_url
     click_on "New booking"
 
+    # Fill out the required fields
+    select users(:one).email, from: "booking_owner_id"
+    select users(:two).email, from: "booking_sitter_id"
+    fill_in "booking_start_date", with: Date.current
+    fill_in "booking_end_date", with: Date.current + 2.days
+    fill_in "booking_location", with: "Test Location"
+    fill_in "booking_notes", with: "Test booking notes"
+
     click_on "Create Booking"
 
     assert_text "Booking was successfully created"
@@ -23,6 +31,10 @@ class BookingsTest < ApplicationSystemTestCase
   test "should update Booking" do
     visit booking_url(@booking)
     click_on "Edit this booking", match: :first
+
+    # Update some fields
+    fill_in "booking_location", with: "Updated Location"
+    fill_in "booking_notes", with: "Updated notes"
 
     click_on "Update Booking"
 
