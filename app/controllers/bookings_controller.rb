@@ -28,7 +28,10 @@ class BookingsController < ApplicationController
       redirect_to @booking, notice: "Booking was successfully created."
     else
       @booking = Booking.new(booking_params)
-      @booking.errors.add(:base, result.errors.join(", ")) if result.errors.any?
+      # Copy validation errors from service to the booking object
+      service.errors.each do |error|
+        @booking.errors.add(error.attribute, error.message)
+      end
       flash.now[:alert] = "There was a problem creating the booking."
       render :new, status: :unprocessable_entity
     end

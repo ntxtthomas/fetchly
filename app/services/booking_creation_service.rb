@@ -1,3 +1,5 @@
+require "ostruct"
+
 class BookingCreationService
   include ActiveModel::Model
 

@@ -16,10 +16,15 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create booking" do
+    user_one = users(:one)
+    user_two = users(:two)
+    dog_one = dogs(:one)
+
     assert_difference("Booking.count") do
       post bookings_url, params: { booking: {
-        owner_id: users(:one).id,
-        sitter_id: users(:two).id,
+        owner_id: user_one.id,
+        sitter_id: user_two.id,
+        dog_ids: [dog_one.id],
         start_date: Date.current,
         end_date: Date.current + 2.days,
         location: "Test Location",

@@ -2,37 +2,42 @@ require "test_helper"
 
 class DogsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get dogs_index_url
+    get dogs_url
     assert_response :success
   end
 
   test "should get show" do
-    get dogs_show_url
+    dog = dogs(:one)
+    get dog_url(dog)
     assert_response :success
   end
 
   test "should get new" do
-    get dogs_new_url
+    get new_dog_url
     assert_response :success
   end
 
   test "should get create" do
-    get dogs_create_url
-    assert_response :success
+    owner = users(:one)
+    post dogs_url, params: { dog: { name: "Test Dog", breed: "Labrador", age: 3, weight: "50", owner_id: owner.id } }
+    assert_response :redirect
   end
 
   test "should get edit" do
-    get dogs_edit_url
+    dog = dogs(:one)
+    get edit_dog_url(dog)
     assert_response :success
   end
 
   test "should get update" do
-    get dogs_update_url
-    assert_response :success
+    dog = dogs(:one)
+    patch dog_url(dog), params: { dog: { name: "Updated Dog" } }
+    assert_response :redirect
   end
 
   test "should get destroy" do
-    get dogs_destroy_url
-    assert_response :success
+    dog = dogs(:one)
+    delete dog_url(dog)
+    assert_response :redirect
   end
 end

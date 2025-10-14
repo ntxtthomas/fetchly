@@ -32,11 +32,10 @@
 
 <div class="mb-3">
   <%= form.label :owner_id, "Owner", class: "form-label" %>
-  <%= form.collection_select :owner_id, User.all, :id, :name, 
+  <%= form.collection_select :owner_id, User.all, :id, :display_name, 
                                { prompt: "Select an owner" }, 
                                { class: "form-select" } %>
 </div>
-
 <div class="mb-3">
   <%= form.submit class: "btn btn-primary" %>
   <%= link_to "Cancel", dogs_path, class: "btn btn-secondary" %>

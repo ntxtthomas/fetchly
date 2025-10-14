@@ -2,37 +2,41 @@ require "test_helper"
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get users_index_url
+    get users_url
     assert_response :success
   end
 
   test "should get show" do
-    get users_show_url
+    user = users(:one)
+    get user_url(user)
     assert_response :success
   end
 
   test "should get new" do
-    get users_new_url
+    get new_user_url
     assert_response :success
   end
 
   test "should get create" do
-    get users_create_url
-    assert_response :success
+    post users_url, params: { user: { first_name: "Test", last_name: "User", email: "test@example.com" } }
+    assert_response :redirect
   end
 
   test "should get edit" do
-    get users_edit_url
+    user = users(:one)
+    get edit_user_url(user)
     assert_response :success
   end
 
   test "should get update" do
-    get users_update_url
-    assert_response :success
+    user = users(:one)
+    patch user_url(user), params: { user: { first_name: "Updated" } }
+    assert_response :redirect
   end
 
   test "should get destroy" do
-    get users_destroy_url
-    assert_response :success
+    user = users(:three)  # Use user with no bookings
+    delete user_url(user)
+    assert_response :redirect
   end
 end
