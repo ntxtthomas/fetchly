@@ -26,19 +26,21 @@ class BookingCreationService
     return OpenStruct.new(success?: false, errors: errors, booking: nil) unless valid?
 
     begin
-      ActiveRecord::Base.transaction do
+      result = ActiveRecord::Base.transaction do
         @booking = create_booking
         send_confirmation_email
         log_booking_creation
 
         OpenStruct.new(success?: true, errors: [], booking: @booking)
       end
+      result
     rescue ActiveRecord::RecordInvalid => e
       Rails.logger.error "Booking creation failed: #{e.message}"
       OpenStruct.new(success?: false, errors: [e.message], booking: nil)
     rescue StandardError => e
       Rails.logger.error "Unexpected error during booking creation: #{e.message}"
-      OpenStruct.new(success?: false, errors: ["An unexpected error occurred"], booking: nil)
+      Rails.logger.error "Backtrace: #{e.backtrace}"
+      OpenStruct.new(success?: false, errors: [e.message], booking: nil)
     end
   end
 
@@ -67,7 +69,7 @@ class BookingCreationService
 
   def log_booking_creation
     dog_names = dogs.map(&:name).join(", ")
-    Rails.logger.info "Booking created: ID #{@booking.id}, Dogs: #{dog_names}, Owner: #{owner.name}"
+    Rails.logger.info "Booking created: ID #{@booking.id}, Dogs: #{dog_names}, Owner: #{owner.display_name}"
   end
 
   def end_date_after_start_date
