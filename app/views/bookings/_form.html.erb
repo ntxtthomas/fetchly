@@ -22,6 +22,16 @@
 </div>
 
 <div class="field">
+  <%= form.label :dog_ids, "Dogs", style: "display: block" %>
+  <%= form.collection_check_boxes :dog_ids, Dog.all, :id, :name do |b| %>
+  <div class="form-check">
+    <%= b.check_box(class: "form-check-input") %>
+    <%= b.label(class: "form-check-label") %>
+  </div>
+  <% end %>
+</div>
+
+<div class="field">
   <%= form.label :start_date, style: "display: block" %>
   <%= form.date_field :start_date, class: "form-control" %>
 </div>
