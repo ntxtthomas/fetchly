@@ -1,15 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  breed: MyString
-  age: 1
-  weight: MyString
+  name: Buddy
+  breed: Golden Retriever
+  age: 3
+  weight: 65
   owner: one
 
 two:
-  name: MyString
-  breed: MyString
-  age: 1
-  weight: MyString
+  name: Luna
+  breed: Border Collie
+  age: 2
+  weight: 45
   owner: two
