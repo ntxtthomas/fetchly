@@ -1,0 +1,43 @@
+<%= form_with model: dog, local: true do |form| %>
+<% if dog.errors.any? %>
+<div class="alert alert-danger">
+  <h4><%= pluralize(dog.errors.count, "error") %> prohibited this dog from being saved:</h4>
+  <ul>
+    <% dog.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="mb-3">
+  <%= form.label :name, class: "form-label" %>
+  <%= form.text_field :name, class: "form-control" %>
+</div>
+
+<div class="mb-3">
+  <%= form.label :breed, class: "form-label" %>
+  <%= form.text_field :breed, class: "form-control" %>
+</div>
+
+<div class="mb-3">
+  <%= form.label :age, class: "form-label" %>
+  <%= form.number_field :age, class: "form-control" %>
+</div>
+
+<div class="mb-3">
+  <%= form.label :weight, class: "form-label" %>
+  <%= form.number_field :weight, step: 0.1, class: "form-control" %>
+</div>
+
+<div class="mb-3">
+  <%= form.label :owner_id, "Owner", class: "form-label" %>
+  <%= form.collection_select :owner_id, User.all, :id, :display_name, 
+                               { prompt: "Select an owner" }, 
+                               { class: "form-select" } %>
+</div>
+<div class="mb-3">
+  <%= form.submit class: "btn btn-primary" %>
+  <%= link_to "Cancel", dogs_path, class: "btn btn-secondary" %>
+</div>
+<% end %>

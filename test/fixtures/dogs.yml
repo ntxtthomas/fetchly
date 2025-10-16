@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Buddy
+  breed: Golden Retriever
+  age: 3
+  weight: 65
+  owner: one
+
+two:
+  name: Luna
+  breed: Border Collie
+  age: 2
+  weight: 45
+  owner: two

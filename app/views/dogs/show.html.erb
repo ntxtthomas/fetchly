@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-md-8">
+    <h1><%= @dog.name %></h1>
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Dog Details</h5>
+
+        <div class="row mb-2">
+          <div class="col-sm-3"><strong>Breed:</strong></div>
+          <div class="col-sm-9"><%= @dog.breed %></div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-sm-3"><strong>Age:</strong></div>
+          <div class="col-sm-9"><%= @dog.age %> years</div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-sm-3"><strong>Weight:</strong></div>
+          <div class="col-sm-9"><%= @dog.weight %> lbs</div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-sm-3"><strong>Owner:</strong></div>
+          <div class="col-sm-9"><%= @dog.owner_display_name %></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <%= link_to 'Edit', edit_dog_path(@dog), class: "btn btn-primary" %>
+      <%= link_to 'Back', dogs_path, class: "btn btn-secondary" %>
+      <%= link_to 'Delete', dog_path(@dog), method: :delete, 
+                  confirm: "Are you sure?", class: "btn btn-danger" %>
+    </div>
+  </div>
+</div>

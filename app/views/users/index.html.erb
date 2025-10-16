@@ -1,0 +1,33 @@
+<h1>Users</h1>
+
+<div>
+  <%= link_to "New User", new_user_path, class: "btn btn-primary" %>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Roles</th>
+      <th>Active</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= "#{user.first_name} #{user.last_name}" %></td>
+      <td><%= user.email %></td>
+      <td><%= user.roles.pluck(:name).join(", ") %></td>
+      <td><%= user.active? ? "Yes" : "No" %></td>
+      <td>
+        <%= link_to "Show", user_path(user), class: "btn btn-sm btn-outline-primary" %>
+        <%= link_to "Edit", edit_user_path(user), class: "btn btn-sm btn-outline-secondary" %>
+        <%= link_to "Delete", user_path(user), method: :delete, 
+                      confirm: "Are you sure?", class: "btn btn-sm btn-outline-danger" %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

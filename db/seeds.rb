@@ -50,4 +50,31 @@ User.all.each do |user|
 end
 
 puts "✅ Assigned roles to users."
+
+# --- Clear existing Dog data ---
+Dog.delete_all
+
+# --- Create Dogs ---
+# Get all users who can be owners (have owner role or just pick random users)
+owners = User.joins(:roles).where(roles: { name: 'owner' })
+owners = User.all if owners.empty? # fallback if no owners exist
+
+dog_breeds = [
+  "Golden Retriever", "Labrador Retriever", "German Shepherd", "French Bulldog",
+  "Bulldog", "Poodle", "Beagle", "Rottweiler", "Yorkshire Terrier", "Dachshund",
+  "Siberian Husky", "Great Dane", "Chihuahua", "Border Collie", "Australian Shepherd",
+  "Boxer", "Cocker Spaniel", "Boston Terrier", "Shih Tzu", "Pomeranian"
+]
+
+30.times do
+  Dog.create!(
+    name: Faker::Creature::Dog.name,
+    breed: dog_breeds.sample,
+    age: rand(1..15),
+    weight: "#{rand(5..120)} lbs",
+    owner: owners.sample
+  )
+end
+
+puts "✅ Created #{Dog.count} dogs."
 puts "🎉 Seeding complete!"

@@ -1,0 +1,35 @@
+<h1>Dogs</h1>
+
+<div>
+  <%= link_to "New Dog", new_dog_path, class: "btn btn-primary" %>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Breed</th>
+      <th>Age</th>
+      <th>Weight</th>
+      <th>Owner</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @dogs.each do |dog| %>
+    <tr>
+      <td><%= dog.name %></td>
+      <td><%= dog.breed %></td>
+      <td><%= dog.age %> years</td>
+      <td><%= dog.weight %></td>
+      <td><%= dog.owner_display_name %></td>
+      <td>
+        <%= link_to "Show", dog_path(dog), class: "btn btn-sm btn-outline-primary" %>
+        <%= link_to "Edit", edit_dog_path(dog), class: "btn btn-sm btn-outline-secondary" %>
+        <%= link_to "Delete", dog_path(dog), method: :delete, 
+                      confirm: "Are you sure?", class: "btn btn-sm btn-outline-danger" %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
