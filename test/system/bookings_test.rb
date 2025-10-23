@@ -21,6 +21,9 @@ class BookingsTest < ApplicationSystemTestCase
     # Check the first dog checkbox - using the ID from test fixtures
     check "booking_dog_ids_980190962"  # Buddy's ID from test fixtures
 
+    # Select a specific booking status to test it's preserved
+    select "Confirmed", from: "booking_booking_status"
+
     # Use proper date format for date inputs
     fill_in "booking_start_date", with: Date.current.strftime("%Y-%m-%d")
     fill_in "booking_end_date", with: (Date.current + 2.days).strftime("%Y-%m-%d")
@@ -30,6 +33,9 @@ class BookingsTest < ApplicationSystemTestCase
     click_on "Create Booking"
 
     assert_text "Booking was successfully created"
+    # Verify the booking was created with the selected status
+    assert_current_path %r{/bookings/\d+}
+    assert_text "confirmed"  # Check that the status shows as confirmed
   end
 
   test "should update Booking" do

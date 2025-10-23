@@ -3,7 +3,7 @@ require "ostruct"
 class BookingCreationService
   include ActiveModel::Model
 
-  attr_accessor :dog_ids, :owner_id, :sitter_id, :start_date, :end_date, :location, :notes
+  attr_accessor :dog_ids, :owner_id, :sitter_id, :start_date, :end_date, :location, :notes, :booking_status
 
   validates :dog_ids, :owner_id, :start_date, :end_date, presence: true
   validate :end_date_after_start_date
@@ -20,6 +20,7 @@ class BookingCreationService
     @end_date = parse_date(params[:end_date])
     @location = params[:location]
     @notes = params[:notes]
+    @booking_status = params[:booking_status].presence || "pending"
   end
 
   def call
@@ -54,7 +55,7 @@ class BookingCreationService
       end_date: end_date,
       location: location,
       notes: notes,
-      booking_status: "pending"
+      booking_status: booking_status
     )
 
     # Associate dogs with the booking
