@@ -56,9 +56,10 @@ class BookingCreationService
       notes: notes,
       booking_status: "pending"
     )
-
+  
     # Associate dogs with the booking
     booking.dogs = dogs
+    booking.save!
     booking
   end
 
