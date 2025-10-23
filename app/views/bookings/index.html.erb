@@ -2,15 +2,82 @@
 
 <% content_for :title, "Bookings" %>
 
-<h1>Bookings</h1>
+<h1 class="dashboard-title">Bookings Dashboard</h1>
 
-<div id="bookings">
-  <% @bookings.each do |booking| %>
-    <%= render booking %>
-    <p>
-      <%= link_to "Show this booking", booking %>
-    </p>
-  <% end %>
+<div class="dashboard-cards">
+  <div class="card card-pending">
+    <div class="card-header">
+      <h3>Pending</h3>
+      <div class="card-icon">💡</div>
+    </div>
+    <div class="card-body">
+      <div class="card-number"><%= @bookings_pending %></div>
+      <p class="card-subtitle">Bookings Pending</p>
+    </div>
+  </div>
+
+  <div class="card card-confirmed">
+    <div class="card-header">
+      <h3>Confirmed</h3>
+      <div class="card-icon">📋</div>
+    </div>
+    <div class="card-body">
+      <div class="card-number"><%= @bookings_confirmed %></div>
+      <p class="card-subtitle">Confirmed Bookings</p>
+    </div>
+  </div>
+
+  <div class="card card-cancelled">
+    <div class="card-header">
+      <h3>Cancelled</h3>
+      <div class="card-icon">📬</div>
+    </div>
+    <div class="card-body">
+      <div class="card-number"><%= @bookings_cancelled %></div>
+      <p class="card-subtitle">Cancelled Bookings</p>
+    </div>
+  </div>
+
+  <div class="card card-completed">
+    <div class="card-header">
+      <h3>Completed</h3>
+      <div class="card-icon">🎯</div>
+    </div>
+    <div class="card-body">
+      <div class="card-number"><%= @bookings_completed %></div>
+      <p class="card-subtitle">Completed Bookings</p>
+    </div>
+  </div>
 </div>
-
-<%= link_to "New booking", new_booking_path %>
+</div>
+<%= link_to "Create Booking", new_booking_path %>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Dog Names</th>
+      <th>Owner Name</th>
+      <th>Sitter Name</th>
+      <th>Status</th>
+      <th>Begin Date</th>
+      <th>End Date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bookings.each do |booking| %>
+    <tr>
+      <td><%= booking.id %></td>
+      <td><%= booking.dog_names %></td>
+      <td><%= booking.owner_display_name %></td>
+      <td><%= booking.sitter_display_name %></td>
+      <td><%= booking.booking_status %></td>
+      <td><%#= booking.begin_date %></td>
+      <td><%#= booking.end_date %></td>
+      <td>
+        <%= link_to "Show this booking", booking %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
