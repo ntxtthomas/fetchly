@@ -14,8 +14,16 @@ RUN apt-get update -qq && \
       npm \
       postgresql-client \
       git \
-      curl && \
+      curl \
+      wget \
+      gnupg \
+      unzip && \
     npm install -g yarn && \
+    # Install Chrome for system tests
+    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /usr/share/keyrings/google-chrome.gpg && \
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
+    apt-get update -qq && \
+    apt-get install --no-install-recommends -y google-chrome-stable && \
     rm -rf /var/lib/apt/lists/*
 
 # Install gems (cached)

@@ -8,3 +8,191 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+/* Status styling */
+.status-pending {
+  color: #0d6efd;
+}
+.status-confirmed {
+  color: #20c997;
+}
+.status-cancelled {
+  color: #dc3545;
+}
+.status-completed {
+  color: #6f42c1;
+}
+
+/* Dashboard Cards */
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  color: #343a40;
+  text-align: center;
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 300px);
+  justify-content: center;
+  gap: 5rem;
+  margin: 5rem 0;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  min-height: 130px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-left: 4px solid #e9ecef;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.card-icon {
+  font-size: 1.5rem;
+  opacity: 0.8;
+}
+
+.card-body {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.card-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.card-subtitle {
+  margin: 0;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+/* Card color themes */
+.card-pending {
+  border-left-color: #0d6efd;
+}
+.card-pending .card-number {
+  color: #0d6efd;
+}
+
+.card-confirmed {
+  border-left-color: #20c997;
+}
+.card-confirmed .card-number {
+  color: #20c997;
+}
+
+.card-cancelled {
+  border-left-color: #dc3545;
+}
+.card-cancelled .card-number {
+  color: #dc3545;
+}
+
+.card-completed {
+  border-left-color: #6f42c1;
+}
+.card-completed .card-number {
+  color: #6f42c1;
+}
+
+/* Basic table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+th,
+td {
+  padding: 0.75em;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+th a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: bold;
+  display: block;
+  padding: 0.25rem 0;
+}
+
+th a:hover {
+  background-color: #e9ecef;
+  color: #0d6efd;
+}
+
+/* Clickable row styling */
+.clickable-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.clickable-row:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.clickable-row:active {
+  transform: translateY(0);
+  background-color: #e9ecef;
+}
+
+.clickable-row.clicked {
+  background-color: #d4edda;
+  border-left: 4px solid #28a745;
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(40, 167, 69, 0.3);
+  transform: scale(0);
+  animation: ripple 0.3s linear;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}

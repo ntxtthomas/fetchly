@@ -4,7 +4,11 @@ class BookingsController < ApplicationController
 
   # GET /bookings
   def index
-    @bookings = Booking.includes(:owner, :sitter).order(created_at: :desc)
+    @bookings = Booking.includes(:owner, :sitter, :dogs).order(created_at: :desc)
+    @bookings_pending = Booking.pending.count
+    @bookings_confirmed = Booking.confirmed.count
+    @bookings_cancelled = Booking.cancelled.count
+    @bookings_completed = Booking.completed.count
   end
 
   # GET /bookings/:id
