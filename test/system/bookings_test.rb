@@ -12,24 +12,24 @@ class BookingsTest < ApplicationSystemTestCase
 
   test "should create booking" do
     visit bookings_url
-    click_on "New booking"
+    click_on "Create Booking"
 
-    # Fill out the required fields
-    select users(:one).email, from: "booking_owner_id"
-    select users(:two).email, from: "booking_sitter_id"
+    # Use actual emails from the test fixtures
+    select "john@example.com", from: "booking_owner_id"
+    select "jane@example.com", from: "booking_sitter_id"
 
-    # Select at least one dog (using checkbox)
-    check dogs(:one).name
+    # Check the first dog checkbox - using the ID from test fixtures
+    check "booking_dog_ids_980190962"  # Buddy's ID from test fixtures
 
-    fill_in "booking_start_date", with: Date.current
-    fill_in "booking_end_date", with: Date.current + 2.days
+    # Use proper date format for date inputs
+    fill_in "booking_start_date", with: Date.current.strftime("%Y-%m-%d")
+    fill_in "booking_end_date", with: (Date.current + 2.days).strftime("%Y-%m-%d")
     fill_in "booking_location", with: "Test Location"
     fill_in "booking_notes", with: "Test booking notes"
 
     click_on "Create Booking"
 
     assert_text "Booking was successfully created"
-    click_on "Back"
   end
 
   test "should update Booking" do

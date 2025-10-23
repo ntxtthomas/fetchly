@@ -157,3 +157,42 @@ th a:hover {
   background-color: #e9ecef;
   color: #0d6efd;
 }
+
+/* Clickable row styling */
+.clickable-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.clickable-row:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.clickable-row:active {
+  transform: translateY(0);
+  background-color: #e9ecef;
+}
+
+.clickable-row.clicked {
+  background-color: #d4edda;
+  border-left: 4px solid #28a745;
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(40, 167, 69, 0.3);
+  transform: scale(0);
+  animation: ripple 0.3s linear;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}

@@ -55,28 +55,25 @@
   <thead>
     <tr>
       <th>ID</th>
-      <th>Dog Names</th>
-      <th>Owner Name</th>
-      <th>Sitter Name</th>
+      <th>Dogs</th>
+      <th>Owners</th>
+      <th>Sitters</th>
       <th>Status</th>
-      <th>Begin Date</th>
+      <th>Start Date</th>
       <th>End Date</th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @bookings.each do |booking| %>
-    <tr>
+    <!-- TODO:replace data-url with Stimulus later -->
+    <tr data-url="<%= booking_path(booking) %>" class="clickable-row">
       <td><%= booking.id %></td>
       <td><%= booking.dog_names %></td>
       <td><%= booking.owner_display_name %></td>
       <td><%= booking.sitter_display_name %></td>
       <td><%= booking.booking_status %></td>
-      <td><%#= booking.begin_date %></td>
-      <td><%#= booking.end_date %></td>
-      <td>
-        <%= link_to "Show this booking", booking %>
-      </td>
+      <td><%= booking.start_date %></td>
+      <td><%= booking.end_date %></td>
     </tr>
     <% end %>
   </tbody>
