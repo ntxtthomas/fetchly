@@ -1,4 +1,11 @@
 SHOW
-<div><%= booking.owner_display_name %></div>
-<div><%= booking.sitter_display_name %></div>
-<div><%= booking.dog_names %></div>
+<div><strong>Owner:</strong> <%= booking.owner_display_name %></div>
+<div><strong>Sitter:</strong> <%= booking.sitter_display_name %></div>
+<div><strong>Dogs:</strong> <%= booking.dog_names %></div>
+<div><strong>Status:</strong> <%= booking.booking_status.humanize %></div>
+<div><strong>Location:</strong> <%= booking.location %></div>
+<div><strong>Start Date:</strong> <%= booking.start_date %></div>
+<div><strong>End Date:</strong> <%= booking.end_date %></div>
+<% if booking.notes.present? %>
+<div><strong>Notes:</strong> <%= booking.notes %></div>
+<% end %>

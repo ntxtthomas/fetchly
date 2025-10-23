@@ -35,7 +35,7 @@ class BookingsTest < ApplicationSystemTestCase
     assert_text "Booking was successfully created"
     # Verify the booking was created with the selected status
     assert_current_path %r{/bookings/\d+}
-    assert_text "confirmed"  # Check that the status shows as confirmed
+    assert_text "Confirmed"  # Check that the status shows as confirmed (capitalized)
   end
 
   test "should update Booking" do
