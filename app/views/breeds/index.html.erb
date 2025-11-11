@@ -1,11 +1,45 @@
 <div class="row">
   <div class="col-12">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h1 class="h2">Dog Breeds</h1>
+      <h1 class="h2">Dog Breeds
+        <small class="text-muted fs-6">(<%= @total_count %> total)</small>
+      </h1>
       <div>
         <!-- CSV download button placeholder -->
         <button class="btn btn-outline-success">📊 Download CSV</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Pagination Info and Controls -->
+<div class="row">
+  <div class="col-md-6">
+    <p class="text-muted mb-3">
+      Showing <%= (@current_page - 1) * @per_page + 1 %> to
+      <%= [@current_page * @per_page, @total_count].min %> of
+      <%= @total_count %> breeds
+    </p>
+  </div>
+  <div class="col-md-6">
+    <div class="d-flex justify-content-end align-items-center">
+      <%= form_with url: breeds_path, method: :get, local: true, class: "d-flex align-items-center" do |form| %>
+      <%= form.hidden_field :page, value: 1 %>
+      <label for="per_page" class="form-label me-2 mb-0 text-nowrap">Show:</label>
+      <%= form.select :per_page, 
+            options_for_select([
+              ['10 breeds', 10],
+              ['20 breeds', 20],
+              ['50 breeds', 50],
+              ['All', @total_count]
+            ], @per_page), 
+            {}, 
+            {
+              class: "form-select form-select-sm", 
+              style: "width: auto;",
+              onchange: "this.form.submit();"
+            } %>
+      <% end %>
     </div>
   </div>
 </div>
@@ -36,5 +70,84 @@
         </tbody>
       </table>
     </div>
+  </div>
+</div>
+
+<!-- Pagination Controls -->
+<div class="row mt-4">
+  <div class="col-12">
+    <nav aria-label="Breeds pagination">
+      <ul class="pagination justify-content-center">
+        <!-- Previous Button -->
+        <li class="page-item <%= 'disabled' if @current_page <= 1 %>">
+          <% if @current_page > 1 %>
+          <%= link_to breeds_path(page: @current_page - 1, per_page: @per_page), class: "page-link" do %>
+          <span aria-hidden="true">&laquo;</span> Previous
+          <% end %>
+          <% else %>
+          <span class="page-link">
+            <span aria-hidden="true">&laquo;</span> Previous
+          </span>
+          <% end %>
+        </li>
+
+        <!-- Page Numbers -->
+        <% 
+          # Calculate page range to show
+          start_page = [@current_page - 2, 1].max
+          end_page = [@current_page + 2, @total_pages].min
+          
+          # Adjust if we're near the beginning or end
+          if end_page - start_page < 4
+            if start_page == 1
+              end_page = [start_page + 4, @total_pages].min
+            else
+              start_page = [end_page - 4, 1].max
+            end
+          end
+        %>
+
+        <% if start_page > 1 %>
+        <li class="page-item">
+          <%= link_to "1", breeds_path(page: 1, per_page: @per_page), class: "page-link" %>
+        </li>
+        <% if start_page > 2 %>
+        <li class="page-item disabled">
+          <span class="page-link">…</span>
+        </li>
+        <% end %>
+        <% end %>
+
+        <% (start_page..end_page).each do |page_num| %>
+        <li class="page-item <%= 'active' if page_num == @current_page %>">
+          <%= link_to page_num, breeds_path(page: page_num, per_page: @per_page), class: "page-link" %>
+        </li>
+        <% end %>
+
+        <% if end_page < @total_pages %>
+        <% if end_page < @total_pages - 1 %>
+        <li class="page-item disabled">
+          <span class="page-link">…</span>
+        </li>
+        <% end %>
+        <li class="page-item">
+          <%= link_to @total_pages, breeds_path(page: @total_pages, per_page: @per_page), class: "page-link" %>
+        </li>
+        <% end %>
+
+        <!-- Next Button -->
+        <li class="page-item <%= 'disabled' if @current_page >= @total_pages %>">
+          <% if @current_page < @total_pages %>
+          <%= link_to breeds_path(page: @current_page + 1, per_page: @per_page), class: "page-link" do %>
+          Next <span aria-hidden="true">&raquo;</span>
+          <% end %>
+          <% else %>
+          <span class="page-link">
+            Next <span aria-hidden="true">&raquo;</span>
+          </span>
+          <% end %>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>

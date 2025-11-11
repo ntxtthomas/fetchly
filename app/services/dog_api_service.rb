@@ -7,10 +7,33 @@ class DogApiService
     @api_key = api_key || ENV["DOG_API_KEY"]
   end
 
-  def fetch_breeds
-    response = make_request("/breeds")
-    parsed_data = parse_response(response)
-    enhance_with_size_data(parsed_data)
+  def fetch_breeds(page: 1, per_page: 20)
+    all_breeds = fetch_all_breeds
+
+    # Calculate pagination
+    total_count = all_breeds.length
+    offset = (page - 1) * per_page
+
+    # Get the breeds for this page
+    paginated_breeds = all_breeds[offset, per_page] || []
+
+    # Return a hash with pagination info
+    {
+      breeds: paginated_breeds,
+      current_page: page,
+      per_page: per_page,
+      total_count: total_count,
+      total_pages: (total_count.to_f / per_page).ceil
+    }
+  end
+
+  def fetch_all_breeds
+    # Use instance variable to cache the API call within the same request
+    @all_breeds ||= begin
+      response = make_request("/breeds")
+      parsed_data = parse_response(response)
+      enhance_with_size_data(parsed_data) if parsed_data
+    end
   end
 
   def fetch_breed(breed_id)
