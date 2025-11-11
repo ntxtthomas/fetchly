@@ -13,6 +13,11 @@ class BreedsController < ApplicationController
     @total_pages = result[:total_pages]
     @total_count = result[:total_count]
     @per_page = result[:per_page]
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data BreedCsvExporter.export, filename: "all_dog_breeds-#{Date.today.strftime('%B_%Y')}.csv" }
+    end
   end
 
   def show
