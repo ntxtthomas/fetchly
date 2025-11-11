@@ -17,10 +17,8 @@ class DogApiService
     response = make_request("/breeds/#{breed_id}")
     parsed_data = parse_response(response)
     return nil unless parsed_data
-    
-    enhance_with_size_data(parsed_data).first
-  end
 
+    enhance_with_size_data([parsed_data]).first
   end
 
   def fetch_breed_images(breed_id, limit = 5)
@@ -33,7 +31,7 @@ class DogApiService
   def make_request(endpoint)
     options = {
       headers: {
-        'x-api-key' => @api_key
+        "x-api-key" => @api_key
       }
     }
     self.class.get(endpoint, options)
@@ -46,21 +44,20 @@ class DogApiService
 
   def enhance_with_size_data(breeds)
     breeds.map do |breed|
-
       weight_string = breed["weight"]["imperial"]
       weight_numbers = weight_string.scan(/\d+/).map(&:to_i)
-  
+
       case weight_numbers.size
       when 1 then average_weight = weight_numbers.first
       when 2 then average_weight = (weight_numbers.sum / 2.0).round
       else average_weight = nil
       end
       size =  case average_weight
-              when 0...30 then "Small"
-              when 30...65 then "Medium"
-              when 65...80 then "Large"
-              else "Extra Large"
-              end
+      when 0...30 then "Small"
+      when 30...65 then "Medium"
+      when 65...80 then "Large"
+      else "Extra Large"
+      end
       breed.merge("size_category" => size)
     end
   end

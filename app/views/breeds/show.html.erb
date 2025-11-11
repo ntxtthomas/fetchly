@@ -1,0 +1,19 @@
+<h1>
+  <%= @breed["name"]%>
+</h1>
+<% if @breed_images && @breed_images.any? %>
+<div class="breed-image">
+  <img src="<%= @breed_images.first["url"] %>" alt="<%= @breed["name"] %>" style="max-width: 400px; height: auto;">
+</div>
+<% else %>
+<p>No image available</p>
+<% end %>
+<p><strong> Weight: </strong> <%= @breed["weight"] %></p>
+<p><strong> Height: </strong> <%= @breed["height"] %></p>
+<p><strong> Bred For:</strong> <%= @breed["bred_for"] %></p>
+<p><strong> Breed Group:</strong> <%= @breed["breed_group"] %></p>
+<p><strong> Life Span:</strong> <%= @breed["life_span"] %></p>
+<p><strong> Temperament: </strong> <%= @breed["temperament"] %></p>
+<p><strong> Origin: </strong> <%= @breed["origin"] %></p>
+<p><strong> Size Category:</strong> <%= @breed["size_category"] %></p>
+<%= link_to "Back", :back %>

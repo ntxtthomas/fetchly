@@ -1,0 +1,22 @@
+<h1>Dog Breeds</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Bred For</th>
+      <th>Breed Group</th>
+      <th>Size Category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @breeds.each do | breed |%>
+    <tr onclick="window.location='<%= breed_path(breed["id"]) %>'" style="cursor: pointer;">
+      <td><%= breed["name"] %></td>
+      <td><%= breed["bred_for"] %></td>
+      <td><%= breed["breed_group"] %></td>
+      <td><%= breed["size_category"] %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
