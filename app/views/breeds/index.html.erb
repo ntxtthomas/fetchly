@@ -1,22 +1,40 @@
-<h1>Dog Breeds</h1>
+<div class="row">
+  <div class="col-12">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="h2">Dog Breeds</h1>
+      <div>
+        <!-- CSV download button placeholder -->
+        <button class="btn btn-outline-success">📊 Download CSV</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Bred For</th>
-      <th>Breed Group</th>
-      <th>Size Category</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @breeds.each do | breed |%>
-    <tr onclick="window.location='<%= breed_path(breed["id"]) %>'" style="cursor: pointer;">
-      <td><%= breed["name"] %></td>
-      <td><%= breed["bred_for"] %></td>
-      <td><%= breed["breed_group"] %></td>
-      <td><%= breed["size_category"] %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-12">
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Bred For</th>
+            <th scope="col">Breed Group</th>
+            <th scope="col">Size Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @breeds.each do |breed| %>
+          <tr onclick="window.location='<%= breed_path(breed["id"]) %>'" style="cursor: pointer;" class="table-row-hover">
+            <td class="fw-medium text-primary"><%= breed["name"] %></td>
+            <td><%= breed["bred_for"] || "—" %></td>
+            <td><%= breed["breed_group"] || "—" %></td>
+            <td>
+              <span class="badge bg-secondary"><%= breed["size_category"] %></span>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,19 +1,77 @@
-<h1>
-  <%= @breed["name"]%>
-</h1>
-<% if @breed_images && @breed_images.any? %>
-<div class="breed-image">
-  <img src="<%= @breed_images.first["url"] %>" alt="<%= @breed["name"] %>" style="max-width: 400px; height: auto;">
+<div class="row">
+  <div class="col-12">
+    <%= link_to "← Back to All Breeds", breeds_path, class: "btn btn-outline-secondary mb-3" %>
+  </div>
 </div>
-<% else %>
-<p>No image available</p>
-<% end %>
-<p><strong> Bred For:</strong> <%= @breed["bred_for"] %></p>
-<p><strong> Origin: </strong> <%= @breed["origin"] %></p>
-<p><strong> Breed Group:</strong> <%= @breed["breed_group"] %></p>
-<p><strong> Typical Life Span:</strong> <%= @breed["life_span"] %></p>
-<p><strong> Temperament: </strong> <%= @breed["temperament"] %></p>
-<p><strong> Weight: </strong> <%= @breed["weight"] %></p>
-<p><strong> Height: </strong> <%= @breed["height"] %></p>
-<p><strong> Size Category:</strong> <%= @breed["size_category"] %></p>
-<%= link_to "Back", :back %>
+
+<div class="row">
+  <div class="col-md-6">
+    <% if @breed_images && @breed_images.any? %>
+    <div class="mb-4">
+      <img src="<%= @breed_images.first["url"] %>" alt="<%= @breed["name"] %>" class="img-fluid rounded shadow-sm" style="max-height: 400px; width: 100%; object-fit: cover;">
+    </div>
+    <% else %>
+    <div class="bg-light rounded p-5 text-center mb-4">
+      <p class="text-muted mb-0">No image available</p>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="col-md-6">
+    <h1 class="h2 mb-4"><%= @breed["name"] %></h1>
+
+    <div class="card">
+      <div class="card-body">
+        <dl class="row mb-0">
+          <dt class="col-sm-4">Bred For:</dt>
+          <dd class="col-sm-8"><%= @breed["bred_for"] || "—" %></dd>
+
+          <dt class="col-sm-4">Origin:</dt>
+          <dd class="col-sm-8"><%= @breed["origin"] || "—" %></dd>
+
+          <dt class="col-sm-4">Breed Group:</dt>
+          <dd class="col-sm-8"><%= @breed["breed_group"] || "—" %></dd>
+
+          <dt class="col-sm-4">Life Span:</dt>
+          <dd class="col-sm-8"><%= @breed["life_span"] || "—" %></dd>
+
+          <dt class="col-sm-4">Size Category:</dt>
+          <dd class="col-sm-8">
+            <span class="badge bg-secondary"><%= @breed["size_category"] %></span>
+          </dd>
+
+          <dt class="col-sm-4">Weight:</dt>
+          <dd class="col-sm-8">
+            <% if @breed["weight"] %>
+            Imperial: <%= @breed["weight"]["imperial"] || "—" %><br>
+            Metric: <%= @breed["weight"]["metric"] || "—" %>
+            <% else %>
+            —
+            <% end %>
+          </dd>
+
+          <dt class="col-sm-4">Height:</dt>
+          <dd class="col-sm-8">
+            <% if @breed["height"] %>
+            Imperial: <%= @breed["height"]["imperial"] || "—" %><br>
+            Metric: <%= @breed["height"]["metric"] || "—" %>
+            <% else %>
+            —
+            <% end %>
+          </dd>
+        </dl>
+      </div>
+    </div>
+
+    <% if @breed["temperament"] %>
+    <div class="card mt-3">
+      <div class="card-header">
+        <h5 class="mb-0">Temperament</h5>
+      </div>
+      <div class="card-body">
+        <p class="mb-0"><%= @breed["temperament"] %></p>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
