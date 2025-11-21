@@ -364,14 +364,14 @@ PLATFORMS
   aarch64-linux-musl
   arm-linux-gnu
   arm-linux-musl
-  x86_64-darwin-24
+  x86_64-darwin-25
   x86_64-linux
   x86_64-linux-gnu
   x86_64-linux-musl
 
 DEPENDENCIES
   bootsnap
-  brakeman
+  brakeman (~> 7.1.0)
   capybara
   debug
   faker
