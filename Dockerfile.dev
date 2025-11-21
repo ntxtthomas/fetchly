@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-ARG RUBY_VERSION=3.4.6
+ARG RUBY_VERSION=3.4.7
 FROM ruby:$RUBY_VERSION
 
 # Set working directory
@@ -7,24 +7,24 @@ WORKDIR /rails
 
 # Install base packages needed for development
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y \
-      build-essential \
-      libpq-dev \
-      nodejs \
-      npm \
-      postgresql-client \
-      git \
-      curl \
-      wget \
-      gnupg \
-      unzip && \
-    npm install -g yarn && \
-    # Install Chrome for system tests
-    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /usr/share/keyrings/google-chrome.gpg && \
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
-    apt-get update -qq && \
-    apt-get install --no-install-recommends -y google-chrome-stable && \
-    rm -rf /var/lib/apt/lists/*
+  apt-get install --no-install-recommends -y \
+  build-essential \
+  libpq-dev \
+  nodejs \
+  npm \
+  postgresql-client \
+  git \
+  curl \
+  wget \
+  gnupg \
+  unzip && \
+  npm install -g yarn && \
+  # Install Chrome for system tests
+  wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /usr/share/keyrings/google-chrome.gpg && \
+  echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
+  apt-get update -qq && \
+  apt-get install --no-install-recommends -y google-chrome-stable && \
+  rm -rf /var/lib/apt/lists/*
 
 # Install gems (cached)
 COPY Gemfile Gemfile.lock ./
